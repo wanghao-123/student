@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.VotesDao">
+    <insert id="insertVotes" parameterType="Votes" keyColumn="v_id" keyProperty="v_id">
+        INSERT INTO votes(v_oid,v_sid,v_uid) VALUES(#{options.o_id},#{subject.sid},#{users.userid})
+    </insert>
+    <select id="selectVotes" resultType="int" parameterType="Votes">
+        SELECT count(1) FROM votes
+        WHERE v_sid=#{subject.sid} AND v_uid=#{users.userid}
+    </select>
+    <delete id="deleteVotes" parameterType="Subject">
+        DELETE FROM votes WHERE v_sid=#{sid}
+    </delete>
+</mapper>

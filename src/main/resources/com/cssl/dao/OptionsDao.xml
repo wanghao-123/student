@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.OptionsDao">
+    <insert id="insertOptions" parameterType="Options" keyColumn="o_id" keyProperty="o_id">
+            INSERT INTO `options`(o_content,o_sid) VALUES(#{o_content},#{subject.sid})
+    </insert>
+    <select id="selectOptions" parameterType="Subject" resultType="map">
+        SELECT o_content,COUNT(v.v_id) countvid,o.o_id FROM `options` o
+        LEFT JOIN votes v ON o.o_id=v.v_oid
+        <where>
+            <if test="sid!=null">
+                o.o_sid=#{sid}
+            </if>
+        </where>
+        GROUP BY o.o_id
+        ORDER BY countvid DESC
+    </select>
+    <delete id="deleteOptions" parameterType="Subject">
+        DELETE FROM `options` WHERE o_sid=#{sid}
+    </delete>
+</mapper>

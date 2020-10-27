@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.SubjectDao">
+    <insert id="insertSubject" parameterType="Subject" keyProperty="sid" keyColumn="sid">
+        INSERT INTO `subject`(s_title,s_type) VALUES(#{s_title},#{s_type})
+    </insert>
+    <select id="selectSubject" resultType="map" parameterType="Subject">
+        SELECT sid,s_title,s_type,COUNT(DISTINCT o.o_id) AS oidcount,COUNT(DISTINCT i.v_id) AS v_uidcount
+        FROM `subject` s
+        LEFT JOIN `options` o ON s.sid=o.o_sid
+        LEFT JOIN  votes i ON s.sid=i.v_sid
+        <where>
+            <if test="s_title!=null">
+                s_title LIKE CONCAT('%',#{s_title},'%')
+            </if>
+            <if test="sid!=null">
+                s.sid=#{sid}
+            </if>
+        </where>
+        GROUP BY s.sid,s.s_title
+    </select>
+    <select id="selectTitle" parameterType="Subject" resultType="int">
+        SELECT COUNT(1) FROM SUBJECT
+        WHERE s_title=#{s_title}
+    </select>
+    <delete id="deleteSubject" parameterType="Subject">
+        DELETE FROM `subject` WHERE sid=#{sid}
+    </delete>
+</mapper>

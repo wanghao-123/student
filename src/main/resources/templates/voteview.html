@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<HEAD>
+  <meta charset="UTF-8">
+  <TITLE></TITLE>
+  <LINK th:href="@{http://localhost:8080/css/style.css}" rel="stylesheet" type="text/css">
+  <SCRIPT th:src="@{http://localhost:8080/jq/jquery.js}" type="text/javascript"></SCRIPT>
+  <script th:src="@{http://localhost:8080/js/Authority.js}" type="text/javascript"></script>
+  <META name="GENERATOR" content="MSHTML 11.00.10586.420">
+</HEAD>
+<BODY>
+<DIV class="wrap" id="header">
+  <IMG th:src="@{http://localhost:8080/images/logo.gif}">
+</DIV>
+<DIV class="wrap" id="navbar">
+  <DIV class="profile" th:each="t :${application.get('userMsg')}">
+    <span th:text="'您好,'+${t.username}"></span>
+    <SPAN class="return">
+            <A href="/selectList/1/ordinary">返回列表</A>
+        </SPAN>
+    <SPAN class="addnew">
+            <A href="/add.html">添加新投票</A>
+        </SPAN>
+    <SPAN class="modify">
+            <A href="javascript:PageValidation()">维护</A>
+        </SPAN>
+    <SPAN class="return">
+            <A href="/removeUser">注销</A>
+        </SPAN>
+  </DIV>
+  <DIV class="search">
+    <FORM action="/selectList/1/ordinary" method="get">
+      <INPUT name="s_title" class="input-text" type="text">
+      <INPUT name="submit" class="input-button" type="submit" value=""/>
+    </FORM>
+  </DIV>
+</DIV>
+<DIV class="wrap" id="vote">
+  <H2>查看投票</H2>
+  <UL class="list" th:each="m:${subjects}">
+    <LI>
+      <H4 th:text="${m.get('s_title')}"></H4>
+      <P class="info" th:text="'共有'+${m.get('oidcount')}+'个选项,已有'+${m.get('v_uidcount')}+'个投票'"></P>
+      <OL>
+        <LI th:each="o:${options}">
+          <span th:text="${o.get('o_content')}"></span>
+          <DIV class="rate">
+            <DIV class="ratebg">
+              <DIV class="percent" th:style="'width:'+${o.get('countvid')}/${m.get('v_uidcount') eq 0 ? 1:m.get('v_uidcount')}*100+'%'"></DIV>
+            </DIV>
+            <P th:text="${o.get('countvid')}+'票'">
+            </P>
+            <span style="color:#999;" th:text="${o.get('countvid')}/${m.get('v_uidcount') eq 0 ? 1:m.get('v_uidcount')}*100+'%'"></span>
+          </DIV>
+        </LI>
+      </OL>
+      <DIV class="goback">
+        <A href="/selectList/1/ordinary">返回投票列表</A>
+      </DIV>
+    </LI>
+  </UL>
+</DIV>
+<DIV class="wrap" id="footer"> 北大青鸟 © 版权所有</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<HEAD>
+    <meta charset="UTF-8">
+    <TITLE>登录</TITLE>
+    <LINK th:href="@{http://localhost:8080/css/style.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{http://localhost:8080/jq/jquery.js}" type="text/javascript"></script>
+    <script th:src="@{http://localhost:8080/js/log.js}" type="text/javascript"></script>
+</HEAD>
+<BODY>
+<DIV class="wrap" id="header">
+    <IMG th:src="@{http://localhost:8080/images/logo.gif}">
+</DIV>
+<DIV class="wrap" id="login">
+    <DIV class="main">
+        <DIV class="corner"></DIV>
+        <DIV class="introduce">
+            <H2>北大青鸟</H2>
+            <P th>网上调查系统...</P></DIV>
+        <DIV class="login">
+            <H2>用户登录</H2>
+            <FORM>
+                <DL id="loginBox">
+                    <DT>用户名：</DT>
+                    <DD>
+                        <INPUT name="username" class="input-text" type="text">
+                    </DD>
+                    <DT>密　码：</DT>
+                    <DD>
+                        <INPUT name="password" class="input-text" type="password">
+                    </DD>
+                    <DT></DT>
+                    <DD>
+                        <INPUT name="submit" class="input-button" type="button" value="登录" onclick="sub()">
+                        <A href="regist.html">新用户注册</A>
+                    </DD>
+                </DL>
+            </FORM>
+            <DIV class="error"></DIV>
+        </DIV>
+    </DIV>
+</DIV>
+<DIV class="wrap"></DIV>
+<DIV class="wrap" id="footer"> 北大青鸟 © 版权所有</DIV>
+</BODY>
+</HTML>

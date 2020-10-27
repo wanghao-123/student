@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<HEAD>
+    <meta charset="UTF-8">
+    <TITLE>参与投票</TITLE>
+    <LINK th:href="@{http://localhost:8080/css/style.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{http://localhost:8080/jq/jquery.js}" type="text/javascript"></script>
+    <script th:src="@{http://localhost:8080/js/vote.js}" type="text/javascript"></script>
+    <script th:src="@{http://localhost:8080/js/Authority.js.js}" type="text/javascript"></script>
+    <META name="GENERATOR" content="MSHTML 11.00.10586.420">
+</HEAD>
+<BODY>
+<DIV class="wrap" id="header"><IMG th:src="@{http://localhost:8080/images/logo.gif}"></DIV>
+<DIV class="wrap" id="navbar">
+    <DIV class="profile" th:each="t :${application.get('userMsg')}">
+        <span th:text="'您好,'+${t.username}"></span>
+        <input name="userid" th:value="${t.userid}" type="hidden">
+        <SPAN class="return">
+            <A href="/selectList/1/ordinary">返回列表</A>
+        </SPAN>
+        <SPAN class="addnew">
+            <A href="/add.html">添加新投票</A>
+        </SPAN>
+        <SPAN class="modify">
+            <A href="javascript:PageValidation()">维护</A>
+        </SPAN>
+        <SPAN class="return">
+            <A href="/removeUser">注销</A>
+        </SPAN>
+    </DIV>
+    <DIV class="search">
+        <FORM action="/selectList/1" method="get">
+            <INPUT name="s_title" class="input-text" type="text">
+            <INPUT name="submit" class="input-button" type="submit" value=""/>
+        </FORM>
+    </DIV>
+</DIV>
+<DIV class="wrap" id="vote">
+    <H2>参与投票</H2>
+    <UL class="list" th:each="m:${subjects}">
+        <LI>
+            <H4 th:text="${m.get('s_title')}" th:value="${m.get('sid')}" ID="title"></H4>
+            <P class="info" th:text="'共有'+${m.get('oidcount')}+'个选项,已有'+${m.get('v_uidcount')}+'个投票'"></P>
+                <OL>
+                    <LI th:each="o,stats:${options}">
+                        <INPUT name="options" th:type="${m.get('s_type') eq 1 ? 'radio':'checkbox'}" th:value="${o.get('o_id')}" th:text="${o.get('o_content')}" th:checked="${stats.index eq 0 ? 'true':'false'}">
+                    </LI>
+                </OL>
+                <P class="voteView">
+                    <INPUT type="image"  th:src="@{http://localhost:8080/images/button_vote.gif}" onclick="CastVote()"/>
+                    <A th:href="@{'/Viewvote/see/'+${m.get('sid')}}">
+                        <IMG th:src="@{http://localhost:8080/images/button_view.gif}"/>
+                    </A>
+                </P>
+        </LI>
+    </UL>
+</DIV>
+<DIV class="wrap" id="footer"> 北大青鸟 © 版权所有</DIV>
+</BODY>
+</HTML>
