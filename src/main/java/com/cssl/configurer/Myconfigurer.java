@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //ppppppp
 //66332
 //add
+//remove
 @Configuration
 public class Myconfigurer implements WebMvcConfigurer {
     @Override
