@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 //123
+//66332
 @Configuration
 public class Myconfigurer implements WebMvcConfigurer {
     @Override
